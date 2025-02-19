@@ -27,10 +27,10 @@ python app.py --service service_name --threshold 4098 --interval 10 --log-dir ./
 
 # TODO
 - [x] Add automated log rotation and handling
-- [] Add option to run service as daemon
-- [] Send notification to webhook when threshold is exceeded
-- [] Write tests
-- [] Fetch service names, threshold values and other input's via .env (using dotenv)
+- [ ] Add option to run service as daemon
+- [x] Send notification to webhook when threshold is exceeded
+- [ ] Write tests
+- [ ] Fetch service names, threshold values and other input's via .env (using python-dotenv)
 
 # Thoughts
 Was thinking that maybe i'd directly call the ```docker``` command via ```os``` package to perform updates and fetch container stats, but using the ```docker``` package was definitely faster, optimal and the better call for this project. It was easier in getting the stats in the correct form which would otherwise have been a pain to parse from ```docker``` command outputs.

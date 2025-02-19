@@ -4,6 +4,11 @@ import logging
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 import os
+from notification import send_notification
+
+# set your server ip here
+# TODO: fetch ip from system via os module
+server_ip='192.168.123.123'
 
 def setup_logging(log_dir='logs'):
     if not os.path.exists(log_dir):
@@ -114,9 +119,10 @@ class DockerServiceMonitor:
                 self.logger.info(f"Current {self.service_name} memory usage: {memory_usage / (1024*1024):.2f} MB")
 
                 if memory_usage > self.memory_threshold:
-                    self.logger.warning(f"Memory threshold exceeded: {memory_usage / (1024*1024):.2f} MB/ {self.memory_threhold/(1024*1024):.2f} MB")
+                    self.logger.warning(f"Memory threshold exceeded: {memory_usage / (1024*1024):.2f} MB/ {self.memory_threshold/(1024*1024):.2f} MB")
+                    send_notification(self.service_name, server_ip)
                     self.force_update_service(service)
-                    self.logger.info("Waiting for service to stabilize...")
+                    self.logger.info("Waiting 30s for service to stabilize...")
                     time.sleep(30)
 
             except Exception as e:
