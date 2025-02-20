@@ -6,9 +6,8 @@ from logging.handlers import RotatingFileHandler
 import os
 from notification import send_notification
 
-# set your server ip here
-# TODO: fetch ip from system via os module
-server_ip='192.168.123.123'
+# Server public ip provided by icanhazip.com
+server_ip = os.popen("curl -s icanhazip.com").read().strip()
 
 def setup_logging(log_dir='logs'):
     if not os.path.exists(log_dir):
